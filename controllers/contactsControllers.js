@@ -10,7 +10,6 @@ export const getAllContacts = controllersWrap(async (req, res) => {
 export const getOneContact = controllersWrap(async (req, res) => {
   const { id } = req.params;
   const result = await Contact.findById(id);
-  console.log(result);
 
   if (!result) {
     throw HttpError(404, "Not found");
