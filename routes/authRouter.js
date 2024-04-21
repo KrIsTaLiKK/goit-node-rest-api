@@ -10,10 +10,12 @@ import {
   login,
   logout,
   register,
+  updateAvatar,
   updateSubscriptionStatus,
 } from "../controllers/authControllers.js";
 import { authenticate } from "../middlewares/authenticate.js";
 import { isValid } from "../middlewares/isValidId.js";
+import { upload } from "../middlewares/upload.js";
 
 const authRouter = express.Router();
 
@@ -31,6 +33,13 @@ authRouter.patch(
   isValid,
   validateBody(updateSubscriptionStatusSchema),
   updateSubscriptionStatus
+);
+
+authRouter.patch(
+  "/avatars",
+  authenticate,
+  upload.single("avatar"),
+  updateAvatar
 );
 
 export default authRouter;
