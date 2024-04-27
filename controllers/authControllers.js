@@ -100,6 +100,10 @@ export const updateSubscriptionStatus = controllersWrap(async (req, res) => {
 });
 
 export const updateAvatar = controllersWrap(async (req, res) => {
+  if (!req.file) {
+    throw HttpError(400, "Body must contain a file");
+  }
+
   const { _id } = req.user;
   const { path: tempUpload, originalname } = req.file;
 
